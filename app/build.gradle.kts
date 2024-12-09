@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.ejemploreceptorintents"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.ejemploreceptorintents"
@@ -25,6 +25,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+    buildFeatures{
+        viewBinding=true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
