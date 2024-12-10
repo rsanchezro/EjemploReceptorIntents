@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.CalendarContract
+import android.provider.ContactsContract
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -62,10 +63,10 @@ class MainActivity : AppCompatActivity() {
             //Muy importante que en el archivo de manifiesto la propiedad exported sea true, porque
             //sino la actividad no responderá a esta petición de acción
             //Si existe una actividad en mi sistema capaz de responder a esta acción
-            if(miIntent.resolveActivity(packageManager)!=null)
-            {
-                startActivity(miIntent)
-            }
+            /*if(miIntent.resolveActivity(packageManager)!=null)
+            {*/
+                startActivity(chooser)
+           /* }*/
         }
 
         //Escuchador boton enviar email
@@ -132,5 +133,27 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+
+        //Agrego escuchador del boton insertar contacto
+        mibinding.botonContacto.setOnClickListener {
+            //1º crear el Intent
+            var miIntent=Intent(Intent.ACTION_INSERT)
+            //2º Definir el tipo mime
+           miIntent.type = ContactsContract.Contacts.CONTENT_TYPE
+            //3º Rellenar los datos
+            miIntent.putExtra(ContactsContract.Intents.Insert.NAME, "Roberto")
+            miIntent.putExtra(ContactsContract.Intents.Insert.EMAIL, "rsanchezro@educa.jcyl.es")
+            miIntent.putExtra(ContactsContract.Intents.Insert.PHONE, "983454545")
+            var chooser=Intent.createChooser(miIntent,"Selector")
+            //4º Arrancar la actividad
+
+                startActivity(chooser)
+
+
+        }
+
+
+
+
     }
 }
